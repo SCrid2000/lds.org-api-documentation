@@ -1,4 +1,12 @@
-Unofficial lds.org API Documentation
+Official API Documentation
+===
+
+I found some stuff that's legit:
+
+* <http://tech.lds.org/wiki/LDS_Tools_Web_Services>
+* <https://tech.lds.org/mobile/ldstools/config.json>
+
+LDS.org API Documentation
 ===
 
 Since there is no official API for LDS.org,
@@ -26,6 +34,13 @@ can see that an unprivileged member cannot.
 And whatever you're doing - be it an iOS app or web or whatever,
 be keenly aware of privacy and legal concerns.
 
+Soon to be moved
+===
+
+At the request of a member of the Church's IT department, I will soon be moving this documentation to a separate website where password authentication with an LDS.org account is required.
+
+I assured the person that I spoke with that there's nothing here that a non-member could access and use and also nothing here that a member with lds.org access can't figure out with the Chrome debugger, however, I don't want to make a big deal out of it... meh...
+
 Overview & Playground
 ===
 
@@ -47,39 +62,40 @@ for easy formatting of the data.
       * Page Translation - [/page/str/index](https://www.lds.org/directory/services/ludrs/page/str/index)
       * Ward Metadata - [/unit/current-user-ward-stake/](https://www.lds.org/directory/services/ludrs/unit/current-user-ward-stake/)
       * Stake Metadata - [/unit/current-user-units/](https://www.lds.org/directory/services/ludrs/unit/current-user-units/)
-      * User Id - [/mem/current-user-id/](https://www.lds.org/directory/services/ludrs/mem/current-user-id/)
+      * ~~User Id - [/mem/current-user-id/](https://www.lds.org/directory/services/ludrs/mem/current-user-id/)~~
+      * User Info - [/mem/current-user-info/](https://www.lds.org/directory/services/ludrs/mem/current-user-info/)
       * Approved Photo - [/mem/currentUserHasApprovedPhoto/](https://www.lds.org/directory/services/ludrs/mem/currentUserHasApprovedPhoto/)
-      * Ward Member List - [/mem/member-list/:unit_number](https://www.lds.org/directory/services/ludrs/mem/member-list/:unit_number)
-      * Ward Photo List - [/mem/wardDirectory/photos/:unit_number](https://www.lds.org/directory/services/ludrs/mem/wardDirectory/photos/:unit_number)
+      * Ward Member List - [/mem/member-list/#{unit_number}](https://www.lds.org/directory/services/ludrs/mem/member-list/#{unit_number})
+      * Ward Photo List - [/mem/wardDirectory/photos/#{unit_number}](https://www.lds.org/directory/services/ludrs/mem/wardDirectory/photos/#{unit_number})
           * `unit_number` is found in [`/unit/current-user-ward-stake/`](https://www.lds.org/directory/services/ludrs/unit/current-user-ward-stake/) and [`/unit/current-user-units/`](https://www.lds.org/directory/services/ludrs/unit/current-user-units/)
-      * Map - [/mem/map/:head_of_house_individual_id](https://www.lds.org/directory/services/ludrs/mem/map/:head_of_house_individual_id)
-      * Household - [/mem/householdProfile/:head_of_house_individual_id](https://www.lds.org/directory/services/ludrs/mem/householdProfile/:head_of_house_individual_id)
-          * `:head_of_house_individual_id` is found in `/mem/member-list/:ward_unit_no`
-      * Individual Photos - [/photo/url/:id_1,:id_2,:id_x/individual](https://www.lds.org/directory/services/ludrs/photo/url/:id_1,:id_2,:id_x/individual)
+      * Map - [/mem/map/#{head_of_house_individual_id}](https://www.lds.org/directory/services/ludrs/mem/map/#{head_of_house_individual_id})
+      * Household - [/mem/householdProfile/#{head_of_house_individual_id}](https://www.lds.org/directory/services/ludrs/mem/householdProfile/#{head_of_house_individual_id})
+          * `#{head_of_house_individual_id}` is found in `/mem/member-list/#{ward_unit_no}`
+      * Individual Photos - [/photo/url/#{id_1},#{id_2},#{id_x}/individual](https://www.lds.org/directory/services/ludrs/photo/url/#{id_1},#{id_2},#{id_x}/individual)
           * member ids
       * Ward Leadership Positions & Groups (Callings)
           * List of Position Groups
-              * https://www.lds.org/directory/services/ludrs/1.1/unit/ward-leadership-positions/:ward_unit_no/true
-              * https://www.lds.org/directory/services/ludrs/1.1/unit/ward-leadership-positions/:ward_unit_no/false (deprecated) (false)
+              * https://www.lds.org/directory/services/ludrs/1.1/unit/ward-leadership-positions/#{ward_unit_no}/true
+              * https://www.lds.org/directory/services/ludrs/1.1/unit/ward-leadership-positions/#{ward_unit_no}/false (deprecated) (false)
           * List of the Called
-              * https://www.lds.org/directory/services/ludrs/1.1/unit/stake-leadership-group-detail/:ward_unit_no/:group_key/:instance (not a typo, it says stake, but it's also for wards)
+              * https://www.lds.org/directory/services/ludrs/1.1/unit/stake-leadership-group-detail/#{ward_unit_no}/#{group_key}/#{instance} (not a typo, it says stake, but it's also for wards)
       * Ward Organizations
           * Categories: `["HIGH_PRIEST", "ELDER", "RELIEF_SOCIETY", "PRIEST", "TEACHER", "DEACON", "LAUREL", "MIA_MAID", "BEEHIVE", "ADULTS"]`
-          * https://www.lds.org/directory/services/ludrs/1.1/unit/roster/:ward_unit_no/:organization
+          * https://www.lds.org/directory/services/ludrs/1.1/unit/roster/#{ward_unit_no}/#{organization}
           * **Note on Adults**: This group is all adults. Remember that a newly baptized 50-year-old man may not yet have the priesthood or may be in the office of a priest (typically 16 year-olds).
       * Stake Leadership Positions & Groups
-            * https://www.lds.org/directory/services/ludrs/1.1/unit/stake-leadership-positions/:stake_unit_no
-            * https://www.lds.org/directory/services/ludrs/1.1/unit/stake-leadership-group-detail/:stake_unit_no/:group_key/:instance
+            * https://www.lds.org/directory/services/ludrs/1.1/unit/stake-leadership-positions/#{stake_unit_no}
+            * https://www.lds.org/directory/services/ludrs/1.1/unit/stake-leadership-group-detail/#{stake_unit_no}/#{group_key}/#{instance}
 
       * Missionaries
-          * https://www.lds.org/directory/services/ludrs/missionary/missionaryInfo/:ward_unit_no/
+          * https://www.lds.org/directory/services/ludrs/missionary/missionaryInfo/#{ward_unit_no}/
           * https://www.lds.org/directory/services/ludrs/missionary/missionaryDetail/24587980515/21067/
           * https://www.lds.org/directory/services/ludrs/missionary/missionaryPhoto/24587980515/
 
       * Maps
         * https://www.lds.org/rcmaps/services/user/context.json?lang=eng - some sort of current user context
 
-Note that fields preceded by colons, such as `:unit_number`
+Note that fields preceded by colons, such as `#{unit_number}`
 require an id that you'd get from another resource.
 
 LDS.org Directory
@@ -167,7 +183,11 @@ Households in Ward
 
 Individual wards contain the list of members
 
-    GET /directory/services/ludrs/mem/member-list/:ward_unit_no
+    GET /directory/services/ludrs/mem/member-list/#{ward_unit_no}
+
+**WARNING** **BUG** `headOfHouseIndividualId` and `householdInfo.individualId` refer to the LDS church member in the household if the household/family is of mixed faith (**part-member family**). It may refer to the spouse or even an other/child. `headOfHouse` and `headOfHousehold` are misnomers. They will sometimes refer to the non-member head or the spouse or a child.
+
+**Note** The husband and wife may have distinct last names... so try to go with `surname` when making ad-hoc ids, even if it's the wrong last name for that person.
 
 ```javascript
     [
@@ -212,7 +232,7 @@ so this resource may be entirely unnecessary.
 
 The family phone number and family photo can be accessed like so
 
-    GET /directory/services/ludrs/mem/wardDirectory/photos/:ward_unit_no
+    GET /directory/services/ludrs/mem/wardDirectory/photos/#{ward_unit_no}
 
 ```javascript
     [
@@ -239,7 +259,11 @@ The **individual phone number** is `headOfHousehold.phone`.
 
 The **family phone number** is `householdInfo.phone` (but I'm not sure if it's different).
 
-    GET /directory/services/ludrs/mem/householdProfile/:head_of_house_individual_id
+    GET /directory/services/ludrs/mem/householdProfile/#{head_of_house_individual_id}
+
+**WARNING** **BUG** `headOfHouseIndividualId` and `householdInfo.individualId` refer to the LDS church member in the household if the household/family is of mixed faith (**part-member family**). It may refer to the spouse or even an other/child. `headOfHouse` and `headOfHousehold` are misnomers. They will sometimes refer to the non-member head or the spouse or a child.
+
+**Note** The husband and wife may have distinct last names... so try to go with `surname` when making ad-hoc ids, even if it's the wrong last name for that person.
 
 ```javascript
     {
@@ -324,7 +348,7 @@ Map of Household
 You can build the urlLink yourself,
 so this resource may be entirely unnecessary.
 
-    GET /directory/services/ludrs/mem/map/:head_of_house_individual_id
+    GET /directory/services/ludrs/mem/map/#{head_of_house_individual_id}
 
 ```javascript
     {
@@ -341,10 +365,46 @@ Phone Numbers are only visible via the photos resource.
 
 The only individual data is about the current user.
 
-    GET /directory/services/ludrs/mem/current-user-id/
+    GET /directory/services/ludrs/mem/current-user-info/
+    
+```javascript
+{ "individualId": 999999999
+, "newOption2User": false
+}
+```
 
     GET /directory/services/ludrs/page/userLocale/
 
+Changing your phone number (requires verification):
+
+    POST https://ldsaccount.lds.org/protected/contact-info/
+    
+    _tk=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+    &pendingAction=
+    &personalInfo.email.value=johndoe%40gmail.com
+    &personalInfo.altEmail.value=
+    &memberInfo.directoryIndividualEmail.email=johndoe%40gmail.com
+    &memberInfo.directoryIndividualEmail.privacyLevel=STAKE
+    &personalInfo.sms.country=USA
+    &personalInfo.sms.number=8015550123
+    &accountRecovery.mrnRecoveryAllowed=true
+    &_accountRecovery.mrnRecoveryAllowed=on
+    
+Changing your username / display name:
+
+    POST https://ldsaccount.lds.org/protected/account
+    
+    _tk=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+    &requireParentalConsent=false
+    &parentalConsentType=
+    &parentalConsentSms=
+    &parentalConsentCountryCode=
+    &parentalConsentEmail=
+    &parentalConsentMrn=
+    &userAccountInfo.userName=johndoe
+    &userAccountInfo.displayName=J.T. Doe
+    &userAccountInfo.personalInfo.preferredLanguage=en
+    
 ### Photo Upload
 
 The flash uploader tool does some image manipulation on the file you upload
@@ -364,15 +424,24 @@ the image is scaled to whatever fits best in the bounds of 200x150
 and then (intelligently?) cropped to 40x40
 (or at least it seems to do a good job of getting the face).
 
-    POST /directory/services/ludrs/photo/upload/:individual_id/household/:ward_unit_no}/:stake_unit_no/:area_unit_no
+    POST /directory/services/ludrs/photo/upload/#{individual_id}/household/#{ward_unit_no}}/#{stake_unit_no}/#{area_unit_no}
 
-    name="file0"; filename="original_:picname.jpg"
-    name="file1"; filename="medium_:picname.jpg" 200x150 (height is exactly 150, width may be up to 150 or 200)
-    name="file2"; filename="thumbnail_:picname.jpg" 40x40 ()
+    name="file0"; filename="original_#{picname}.jpg"
+    name="file1"; filename="medium_#{picname}.jpg" 200x150 (height is exactly 150, width may be up to 150 or 200)
+    name="file2"; filename="thumbnail_#{picname}.jpg" 40x40 ()
 
 ```javascript
     {"good":true,"message":""}
 ```
+
+Seen in the wild:
+
+ * `largeUri`: 375x375 (14926 b), 226x375
+ * `mediumUri`: 150x150 (4220 b), 90x150
+ * `thumbnailUri`: 40x40 (1076 b), 24x40
+ * `originalUri`: redirects to 404
+
+The reason for listing the size is so that I can later estimate the jpeg compression used. The original 375x375 image was around 58kb, so the quality is obviously being lowered a bit, in addition to the resolution change. The size difference would suggest that the jpeg quality was reduced to something in the range of 15% to 20%.
 
 Approved Photo
 ---
@@ -390,9 +459,12 @@ Let's you know whether or not the ward clerk has approved a photo uploaded by yo
 Ward Leadership
 ---
 
+Note that the key **`instance`** probably refers to Provo wards where there's 2 Relief Societies.
+I'm not sure.
+
 ### Positions (to be filled)
 
-    GET https://www.lds.org/directory/services/ludrs/1.1/unit/ward-leadership-positions/:ward_unit_no/true
+    GET https://www.lds.org/directory/services/ludrs/1.1/unit/ward-leadership-positions/#{ward_unit_no}/true
 
 ```javascript
 {
@@ -427,7 +499,7 @@ Ward Leadership
 
 ### Positions (false) (probably useless)
 
-    GET https://www.lds.org/directory/services/ludrs/1.1/unit/ward-leadership-positions/:ward_unit_no/false
+    GET https://www.lds.org/directory/services/ludrs/1.1/unit/ward-leadership-positions/#{ward_unit_no}/false
 
 Seems like supplying `false` just changes the name of `wardLeadership` to `stakeLeadership`,
 probably just a bugfix of a time long gone.
@@ -465,7 +537,7 @@ probably just a bugfix of a time long gone.
 
 ### Groups (the called and chosen)
 
-    GET https://www.lds.org/directory/services/ludrs/1.1/unit/stake-leadership-group-detail/:ward_unit_no/:group_key/:instance
+    GET https://www.lds.org/directory/services/ludrs/1.1/unit/stake-leadership-group-detail/#{ward_unit_no}/#{group_key}/#{instance}
 
 **Note**: It's `stake-leadership-group-detail`, but it applies to wards.
 
@@ -492,7 +564,7 @@ Stake Leadership
 
 ### Positions (to be filled)
 
-    GET https://www.lds.org/directory/services/ludrs/1.1/unit/stake-leadership-positions/:stake_unit_no
+    GET https://www.lds.org/directory/services/ludrs/1.1/unit/stake-leadership-positions/#{stake_unit_no}
 
 ```javascript
 {
@@ -527,7 +599,7 @@ Stake Leadership
 
 ### Groups (of called individuals)
 
-    GET https://www.lds.org/directory/services/ludrs/1.1/unit/stake-leadership-group-detail/:stake_unit_no/:group_key/:instance
+    GET https://www.lds.org/directory/services/ludrs/1.1/unit/stake-leadership-group-detail/#{stake_unit_no}/#{group_key}/#{instance}
 
 ```javascript
 {
